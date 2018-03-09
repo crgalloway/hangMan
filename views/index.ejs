@@ -15,19 +15,26 @@
     		$('button').click(function(){
     			let guess = document.getElementById('guess').value
     			console.log(guess)
+    			$('#guess').val('')
     			socket.emit('guess_made',guess)
+    		})
+    		socket.on('correct_guess', function(placehold){
+    			$('#guess').att('placeholder',placehold)
     		})
     	});
     </script>
 </head>
 <body>
-	<div id="disRandWord"></div>
-	<div>
-		<h1 id="triesRemaining"></h1>
+	<div id="wrapper">
+		<div id="disRandWord"></div>
+		<div>
+			<h1 id="triesRemaining"></h1>
+		</div>
+		<div>
+			<input type="text" id="guess" name="guess" placeholder="Single letter only">
+			<button>Submit guess</button>
+		</div>
 	</div>
-	<div>
-		<input type="text" id="guess" name="guess" placeholder="single letter only">
-		<button>Submit guess</button>
-	</div>
+	
 </body>
 </html>

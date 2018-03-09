@@ -17,7 +17,7 @@ app.use(session({ secret:'insecuresecretkey' }))
 app.get('/',function(req,res){
 	res.render('index');
 })
-var wordBank = ["test", "frogger", "dandelion"]
+var wordBank = ["test", "frogger", "dandelion", 'lion', 'computer', 'laptop', 'sockets', 'cthulhu', 'space', 'callback', 'tesla']
 function getRandomWord(wordBank){
 	return wordBank[Math.floor(Math.random()*wordBank.length)]
 }
