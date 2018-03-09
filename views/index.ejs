@@ -15,6 +15,7 @@
     		$('#guessButton').click(function(){
     			let guess = document.getElementById('guess').value
     			console.log(guess)
+
     			$('#guess').val('')
     			socket.emit('guess_made',guess)
     		})
@@ -30,10 +31,12 @@
     		socket.on('correct_guess', function(placehold){
     			$('#placeholder').html(placehold)
     		})
+
     	});
     </script>
 </head>
 <body>
+
 	<div id="wrapper">
 		<div id="disRandWord">
 			<h1 id="placeholder"></h1>
@@ -46,6 +49,7 @@
 			<button id="guessButton">Submit guess</button>
 			<button id="resetButton">Reset Game</button>
 		</div>
+
 	</div>
 	
 </body>
