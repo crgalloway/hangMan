@@ -6,12 +6,28 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
-    	$(document).ready(function({
-    		
+    	$(document).ready(function(){
+    		var socket = io.connect();
+    		socket.on('display_word',function(data){
+    			$('#disRandWord').html(data.word)
+    			$('#triesRemaining').html(String(data.tries))
+    		})
+    		$('button').click(function(){
+    			let guess = document.getElementById('guess').value
+    			console.log(guess)
+    			socket.emit('guess_made',guess)
+    		})
     	});
     </script>
 </head>
 <body>
-
+	<div id="disRandWord"></div>
+	<div>
+		<h1 id="triesRemaining"></h1>
+	</div>
+	<div>
+		<input type="text" id="guess" name="guess" placeholder="single letter only">
+		<button>Submit guess</button>
+	</div>
 </body>
 </html>

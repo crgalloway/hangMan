@@ -21,12 +21,14 @@ var wordBank = ["test", "frogger", "dandelion"]
 function getRandomWord(wordBank){
 	return wordBank[Math.floor(Math.random()*wordBank.length)]
 }
-console.log(randWord)
+var randWord = getRandomWord(wordBank)
+var count = 5
+
 var server = app.listen(8000,function(){
 	console.log("listening on port 8000");
 });
 var io = require('socket.io').listen(server)
-var randWord = getRandomWord(wordBank)
+
 io.sockets.on('connection', function(socket){
-	socket.emit('display_word', randWord)
+	socket.emit('display_word', {word: randWord,tries:count})
 });
