@@ -32,6 +32,11 @@ function wordSearch(guess,randWord){
 	return letterDict
 }
 
+function reset(){
+	count = 5;
+	randWord = getRandomWord(wordBank)
+}
+
 var randWord = getRandomWord(wordBank)
 var count = 5
 
@@ -43,11 +48,8 @@ var io = require('socket.io').listen(server)
 io.sockets.on('connection', function(socket){
 	socket.emit('display_word', {word: randWord,tries:count})
 	socket.on('guess_made',function(guess){
-		if (count==0){
-			randWord = getRandomWord(wordBank)
-			console.log(randWord)
-			count = 5
-			io.emit('display_word', {word: randWord,tries:count})
+		if (count==1){
+			io.emit('game_over')
 		}
 		var result = wordSearch(guess,randWord);
 		if (Object.keys(result).length == 0){
@@ -58,5 +60,8 @@ io.sockets.on('connection', function(socket){
 			io.emit('correct_guess',result)
 		}
 	})
-	
+	socket.on('new_game', function(){
+		reset()
+		io.emit('display_word', {word: randWord,tries:count})
+	})
 });

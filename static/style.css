@@ -7,3 +7,8 @@
 	text-align: center;
 	padding: 5%
 }
+#resetButton{
+	background-color: red;
+	color: white;
+	display: none;
+}
