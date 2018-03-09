@@ -28,7 +28,7 @@
     			$('#guessButton').toggle()
     		})
     		socket.on('correct_guess', function(placehold){
-    			$('#guess').att('placeholder',placehold)
+    			$('#placeholder').html(placehold)
     		})
     	});
     </script>
