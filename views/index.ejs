@@ -12,27 +12,45 @@
     			$('#disRandWord').html(data.word)
     			$('#triesRemaining').html(String(data.tries))
     		})
-    		$('button').click(function(){
+    		$('#guessButton').click(function(){
     			let guess = document.getElementById('guess').value
     			console.log(guess)
-				socket.emit('guess_made',guess)
-    		    $('input:text').val('');
-			})
-			socket.on('correct_guess', function(placehold){
-				$('#guess').attr('placeholder', placehold);
-			})
-			
+
+    			$('#guess').val('')
+    			socket.emit('guess_made',guess)
+    		})
+    		$('#resetButton').click(function(){
+    			$('#resetButton').toggle()
+    			$('#guessButton').toggle()
+    			socket.emit('new_game')
+    		})
+    		socket.on('game_over',function(){
+    			$('#resetButton').toggle()
+    			$('#guessButton').toggle()
+    		})
+    		socket.on('correct_guess', function(placehold){
+    			$('#placeholder').html(placehold)
+    		})
+
     	});
     </script>
 </head>
 <body>
-	<div id="disRandWord"></div>
-	<div>
-		<h1 id="triesRemaining"></h1>
+
+	<div id="wrapper">
+		<div id="disRandWord">
+			<h1 id="placeholder"></h1>
+		</div>
+		<div>
+			<h2 id="triesRemaining"></h2>
+		</div>
+		<div>
+			<input type="text" id="guess" name="guess" placeholder="Single letter only">
+			<button id="guessButton">Submit guess</button>
+			<button id="resetButton">Reset Game</button>
+		</div>
+
 	</div>
-	<div>
-		<input type="text" id="guess" name="guess" placeholder="Single letter only">
-		<button>Submit guess</button>
-	</div>
+	
 </body>
 </html>
