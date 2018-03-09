@@ -15,8 +15,13 @@
     		$('button').click(function(){
     			let guess = document.getElementById('guess').value
     			console.log(guess)
-    			socket.emit('guess_made',guess)
-    		})
+				socket.emit('guess_made',guess)
+    		    $('input:text').val('');
+			})
+			socket.on('correct_guess', function(placehold){
+				$('#guess').attr('placeholder', placehold);
+			})
+			
     	});
     </script>
 </head>
@@ -26,7 +31,7 @@
 		<h1 id="triesRemaining"></h1>
 	</div>
 	<div>
-		<input type="text" id="guess" name="guess" placeholder="single letter only">
+		<input type="text" id="guess" name="guess" placeholder="Single letter only">
 		<button>Submit guess</button>
 	</div>
 </body>

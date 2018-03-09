@@ -29,11 +29,13 @@ function wordSearch(guess,randWord){
 			letterDict[i] = guess
 		}
 	}
+	console.log(letterDict)
 	return letterDict
 }
 
 var randWord = getRandomWord(wordBank)
 var count = 5
+var placehold = []
 
 var server = app.listen(8000,function(){
 	console.log("listening on port 8000");
@@ -55,7 +57,18 @@ io.sockets.on('connection', function(socket){
 			io.emit('display_word', {word: randWord,tries:count})
 		}
 		else{
-			io.emit('correct_guess',result)
+			for (var i = 0; i < randWord.length; i++){
+				for (eachKey in result){
+					if (eachKey == i){
+						placehold[i] = (result[eachKey]);
+					}
+				}
+				if (!placehold[i]){
+					placehold[i] = "_"
+				}
+			}
+			var strPlacehold = placehold.join("")
+			io.emit('correct_guess',strPlacehold)
 		}
 	})
 	
